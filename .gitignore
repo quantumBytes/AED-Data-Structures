@@ -14,3 +14,7 @@
 
 #CodeBlocks project
 *.cbp
+
+#Compiled Directories
+/AED/bin
+/AED/obj
