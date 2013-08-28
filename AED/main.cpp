@@ -22,6 +22,9 @@ int main()
     A.push_front(c);
     A.push_back(c);
 
+    Node<int> **tmp;
+    cout << A.remove(b) << endl << endl;
+
     showList(A);
     cout<<"size: "<<A.size()<<endl;
 }
