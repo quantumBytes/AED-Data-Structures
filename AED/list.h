@@ -4,6 +4,8 @@
 #include "foundations.h"
 #include <iostream>
 
+using namespace std;
+
 template<typename T>
 class list
 {
@@ -148,7 +150,7 @@ void list<T>::pop_back()
 template<typename T>
 void list<T>::remove(T&d)
 {
-    pNode_T *tmp=&m_pHead;
+    pNode_T *tmp = &m_pHead;
     pNode_T mem;
 
     while (inner_find(d, tmp))
@@ -225,7 +227,15 @@ sizet list<T>::count() {
 //IMPLEMENTAR
 template<typename T>
 list<T>* list<T>::op_intersection(list<T> &second) {
-
+    list<T> *ret = new list<T>;
+    pNode_T t1 = m_pHead,
+            *tmp;
+    while(t1) {
+        if (second.find(t1->m_dato, tmp))
+            ret->add_rec(t1->m_dato);
+        t1 = t1->m_pNext;
+    }
+    return ret;
 }
 
 //---------------------------j----------------------------
