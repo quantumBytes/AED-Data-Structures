@@ -7,14 +7,15 @@
 template<typename T>
 class list
 {
-    typedef Node<T> * pNode_T;
+    typedef Node<T> Node_T;
+    typedef Node_T* pNode_T;
 
     protected:
         pNode_T m_pHead;
         sizet m_size;
 
     private:
-        bool inner_find(T&d, Node<T> ** &);
+        bool inner_find(T&d, Node_T ** &);
         void add_rec(T&d,pNode_T& pCurrent);
         bool find_rec(T&d, pNode_T& pCurrent);
         void invert(pNode_T &father, pNode_T &son, pNode_T &grandSon);
@@ -27,7 +28,7 @@ class list
         T& at(sizet);
         T& operator [](sizet position) {return at(position);}
 
-        bool find(T&, Node<T> ** &);
+        bool find(T&, Node_T ** &);
 
         void push_front(T&);
         void push_back(T&);
@@ -38,8 +39,6 @@ class list
         bool find_rec(T&d) {return find_rec(d,m_pHead);}
         void invert() {invert(m_pHead, m_pHead->m_pNext, m_pHead->m_pNext->m_pNext);}
 };
-
-#endif // LIST_H
 
 template<typename T>
 T& list<T>::at(sizet position)
@@ -57,9 +56,9 @@ T& list<T>::at(sizet position)
 }
 
 template<typename T>
-void list<T>::push_front(T&d)
+void list<T>::push_front(T &d)
 {
-    pNode_T nu = new Node<T> (d);
+    pNode_T nu = new Node_T (d);
     if(m_pHead)
         nu->m_pNext=m_pHead;
     m_pHead=nu;
@@ -69,7 +68,7 @@ void list<T>::push_front(T&d)
 template<typename T>
 void list<T>::push_back(T&d)
 {
-    pNode_T nu = new Node<T> (d);
+    pNode_T nu = new Node_T (d);
 
     if(!m_pHead)
         m_pHead=nu;
@@ -87,7 +86,7 @@ void list<T>::push_back(T&d)
 
 /** Starts looking up d since pointer */
 template<typename T>
-bool list<T>::inner_find(T&d, Node<T> ** &pointer)
+bool list<T>::inner_find(T&d, Node_T ** &pointer)
 {
     while(*pointer)
     {
@@ -100,7 +99,7 @@ bool list<T>::inner_find(T&d, Node<T> ** &pointer)
 
 /** Looks up data d on the list, starting since head */
 template<typename T>
-bool list<T>::find(T&d, Node<T> ** &pointer)
+bool list<T>::find(T&d, Node_T ** &pointer)
 {
     pointer=&m_pHead;
     return inner_find(d,pointer);
@@ -158,9 +157,9 @@ void list<T>::remove(T&d)
 //-------------------------d----------------------------
 /** ALGUIEN ARREGLE ESTO xD */
 template<typename T>
-void list<T>::add_rec(T&d,pNode_T& pCurrent)
+void list<T>::add_rec(T&d, pNode_T& pCurrent)
 {
-    pNode_T nu=new Node<T>(d);
+    pNode_T nu=new Node_T(d);
     if(!pCurrent)
     {
         m_pHead=nu;
@@ -202,3 +201,5 @@ void list<T>::invert(pNode_T &father, pNode_T &son, pNode_T &grandSon)
     }
     invert(son, grandSon, grandSon->m_pNext);*/
 }
+
+#endif // LIST_H
