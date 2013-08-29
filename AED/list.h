@@ -2,6 +2,7 @@
 #define LIST_H
 
 #include "foundations.h"
+#include <iostream>
 
 template<typename T>
 class list
@@ -14,6 +15,10 @@ class list
 
     private:
         bool inner_find(T&d, Node<T> ** &);
+        void add_rec(T&d,pNode_T& pCurrent);
+        bool find_rec(T&d, pNode_T& pCurrent);
+        void invert(pNode_T &father, pNode_T &son, pNode_T &grandSon);
+
     public:
         list() : m_pHead(0), m_size(0) {}
         virtual ~list() {}
@@ -21,7 +26,6 @@ class list
         sizet size() {return m_size;}
         T& at(sizet);
         T& operator [](sizet position) {return at(position);}
-        void showList();
 
         bool find(T&, Node<T> ** &);
 
@@ -30,6 +34,9 @@ class list
         void pop_front();
         void pop_back();
         void remove(T&);
+        void add_rec(T&d) {return add_rec(d,m_pHead);}
+        bool find_rec(T&d) {return find_rec(d,m_pHead);}
+        void invert() {invert(m_pHead, m_pHead->m_pNext, m_pHead->m_pNext->m_pNext);}
 };
 
 #endif // LIST_H
@@ -48,8 +55,6 @@ T& list<T>::at(sizet position)
     }
     return tmp->m_dato;
 }
-
-void showList();
 
 template<typename T>
 void list<T>::push_front(T&d)
@@ -149,4 +154,51 @@ void list<T>::remove(T&d)
         delete mem;
         m_size--;
     }
+}
+//-------------------------d----------------------------
+/** ALGUIEN ARREGLE ESTO xD */
+template<typename T>
+void list<T>::add_rec(T&d,pNode_T& pCurrent)
+{
+    pNode_T nu=new Node<T>(d);
+    if(!pCurrent)
+    {
+        m_pHead=nu;
+        m_size++;
+        return;
+    }
+    if(!pCurrent->m_pNext)
+    {
+        pCurrent->m_pNext=nu;
+        m_size++;
+        return;
+    }
+    add_rec(d,pCurrent->m_pNext);
+}
+//---------------------------e----------------------------
+template<typename T>
+bool list<T>::find_rec(T&d, pNode_T& pCurrent)
+{
+    if(!pCurrent)
+        return false;
+    if(pCurrent->m_dato==d)
+        return true;
+    return find_rec(d, pCurrent->m_pNext);
+}
+//---------------------------f----------------------------
+/** INOPERATIVO */
+template<typename T>
+void list<T>::invert(pNode_T &father, pNode_T &son, pNode_T &grandSon)
+{/*
+    son->m_pNext=father;
+    std::cout<<son->m_dato<<std::endl;
+    if(!grandSon->m_pNext)
+    {
+        grandSon->m_pNext=son;
+        m_pHead->m_pNext=0;
+        m_pHead=grandSon;
+
+        return;
+    }
+    invert(son, grandSon, grandSon->m_pNext);*/
 }

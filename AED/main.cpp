@@ -15,12 +15,11 @@ int main()
 {
     list<int> A;
     int a=2, b=3, c=4;
-    A.push_back(a);
-    A.push_back(b);
-    A.push_back(c);
-    A.push_back(a);
-    A.push_back(b);
+    A.add_rec(a);
+    A.add_rec(b);
+    A.add_rec(c);
     showList(A);
-    A.remove(a);
+    A.invert();
     showList(A);
+
 }
