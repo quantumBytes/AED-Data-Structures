@@ -7,13 +7,12 @@ void showList(list<T>& A)
 {
     sizet A_size=A.size();
     for(size_t i=0; i<A_size; i++)
-        cout<<A[i]<<endl;
+        cout<<A[i]<<"\t";
+    cout<<"size: "<<A_size<<endl;
 }
 
 int main()
 {
-
-
     list<int> A;
     int a=2, b=3, c=4;
     A.push_back(a);
@@ -24,6 +23,5 @@ int main()
     showList(A);
     A.remove(a);
     showList(A);
-    cout<<"size: "<<A.size()<<endl;
 }
 
