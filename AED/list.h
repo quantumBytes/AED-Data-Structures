@@ -40,7 +40,7 @@ class list
         void add_rec(T&d) {return add_rec(d,m_pHead);}
         bool find_rec(T&d) {return find_rec(d,m_pHead);}
         void invert() {invert(m_pHead, m_pHead->m_pNext, m_pHead->m_pNext->m_pNext);}
-        T& find_max();
+        T *find_max();
         sizet count();
         list<T>* op_intersection(list<T> &second);
         list<T>* op_union(list<T> &second);
@@ -212,12 +212,19 @@ void list<T>::invert(pNode_T &father, pNode_T &son, pNode_T &grandSon)
 //---------------------------g----------------------------
 //IMPLEMENTAR
 template<typename T>
-T& list<T>::find_max() {
-
+T* list<T>::find_max() {    //Retorna dirección al elemento en la lista, si está vacía retorna NULL
+    if(m_pHead) {
+        T *max = &(m_pHead->m_dato);
+        for(pNode_T tmp = m_pHead->m_pNext; tmp; tmp = tmp->m_pNext)
+            if(tmp->m_dato > (*max))
+                max = &(tmp->m_dato);
+        return max;
+    }
+    else
+        return NULL;
 }
 
 //---------------------------h----------------------------
-//IMPLEMENTAR
 template<typename T>
 sizet list<T>::count() { //Count por bucle, utilizar en el trabajo
     sizet i = 0;
@@ -226,7 +233,6 @@ sizet list<T>::count() { //Count por bucle, utilizar en el trabajo
 }
 
 //---------------------------i----------------------------
-//IMPLEMENTAR
 template<typename T>
 list<T>* list<T>::op_intersection(list<T> &second) {
     list<T> *ret = new list<T>;
@@ -248,7 +254,6 @@ list<T>* list<T>::op_union(list<T> &second) {
 }
 
 //---------------------------k----------------------------
-//IMPLEMENTAR
 template<typename T>
 sizet list<T>::count(T &d) {
     sizet i = 0;
