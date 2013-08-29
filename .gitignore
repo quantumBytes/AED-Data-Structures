@@ -13,4 +13,10 @@
 *.a
 
 #CodeBlocks project
-*.cdp
+*.cbp
+*.depend
+*.layout
+
+#Compiled Directories
+/AED/bin
+/AED/obj

@@ -135,6 +135,7 @@ void list<T>::pop_back()
     m_size--;
 }
 //-------------------------c--------------------------
+/** Removes all the Nodes with the same data than given d */
 template<typename T>
 void list<T>::remove(T&d)
 {

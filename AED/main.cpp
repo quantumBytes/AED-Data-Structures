@@ -24,4 +24,3 @@ int main()
     A.remove(a);
     showList(A);
 }
-
