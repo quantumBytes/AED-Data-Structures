@@ -11,3 +11,12 @@
 *.lai
 *.la
 *.a
+
+#CodeBlocks project
+*.cbp
+*.depend
+*.layout
+
+#Compiled Directories
+/AED/bin
+/AED/obj
