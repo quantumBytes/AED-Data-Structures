@@ -3,17 +3,20 @@
 
 #include "foundations.h"
 
+using namespace std;
+
 template<typename T>
 class list
 {
-    typedef Node<T> * pNode_T;
+    typedef Node<T> Node_T;
+    typedef Node_T* pNode_T;
 
     protected:
         pNode_T m_pHead;
         sizet m_size;
 
     private:
-        bool inner_find(T&d, Node<T> ** &);
+        bool inner_find(T&d, Node_T ** &);
         void add_rec(T&d,pNode_T& pCurrent);
         bool find_rec(T&d, pNode_T& pCurrent);
         void invert(pNode_T father, pNode_T son, pNode_T grandSon);
@@ -26,19 +29,25 @@ class list
         T& at(sizet);
         inline T& operator [](sizet position) {return at(position);}
 
-        bool find(T&, Node<T> ** &);
+        bool find(T&, Node_T ** &);
 
         void push_front(T&);
         void push_back(T&);
         void pop_front();
         void pop_back();
         void remove(T&);
+
         inline void add_rec(T&d) {return add_rec(d,m_pHead);}
         inline bool find_rec(T&d) {return find_rec(d,m_pHead);}
         void invert();
+
+        T& find_max();
+        sizet count();
+        list<T>* op_intersection(list<T> &second);
+        list<T>* op_union(list<T> &second);
+        sizet count(T &d);
 };
 
-#endif // LIST_H
 
 template<typename T>
 T& list<T>::at(sizet position)
@@ -56,9 +65,9 @@ T& list<T>::at(sizet position)
 }
 
 template<typename T>
-void list<T>::push_front(T&d)
+void list<T>::push_front(T &d)
 {
-    pNode_T nu = new Node<T> (d);
+    pNode_T nu = new Node_T (d);
     if(m_pHead)
         nu->m_pNext=m_pHead;
     m_pHead=nu;
@@ -68,7 +77,7 @@ void list<T>::push_front(T&d)
 template<typename T>
 void list<T>::push_back(T&d)
 {
-    pNode_T nu = new Node<T> (d);
+    pNode_T nu = new Node_T (d);
 
     if(!m_pHead)
         m_pHead=nu;
@@ -86,7 +95,7 @@ void list<T>::push_back(T&d)
 
 /** Starts looking up d since pointer */
 template<typename T>
-bool list<T>::inner_find(T&d, Node<T> ** &pointer)
+bool list<T>::inner_find(T&d, Node_T ** &pointer)
 {
     while(*pointer)
     {
@@ -99,7 +108,7 @@ bool list<T>::inner_find(T&d, Node<T> ** &pointer)
 
 /** Looks up data d on the list, starting since head */
 template<typename T>
-bool list<T>::find(T&d, Node<T> ** &pointer)
+bool list<T>::find(T&d, Node_T ** &pointer)
 {
     pointer=&m_pHead;
     return inner_find(d,pointer);
@@ -143,7 +152,7 @@ void list<T>::pop_back()
 template<typename T>
 void list<T>::remove(T&d)
 {
-    pNode_T *tmp=&m_pHead;
+    pNode_T *tmp = &m_pHead;
     pNode_T mem;
 
     while (inner_find(d, tmp))
@@ -157,9 +166,9 @@ void list<T>::remove(T&d)
 //-------------------------d----------------------------
 /** ALGUIEN ARREGLE ESTO xD */
 template<typename T>
-void list<T>::add_rec(T&d,pNode_T& pCurrent)
+void list<T>::add_rec(T&d, pNode_T& pCurrent)
 {
-    pNode_T nu=new Node<T>(d);
+    pNode_T nu=new Node_T(d);
     if(!pCurrent)
     {
         m_pHead=nu;
@@ -217,3 +226,50 @@ void list<T>::invert()
     }
     invert(father, son, grandSon);      /** more than three */
 }
+
+//---------------------------g----------------------------
+//IMPLEMENTAR
+template<typename T>
+T& list<T>::find_max() {
+
+}
+
+//---------------------------h----------------------------
+//IMPLEMENTAR
+template<typename T>
+sizet list<T>::count() { //Count por bucle, utilizar en el trabajo
+    sizet i = 0;
+    for(pNode_T tmp = m_pHead; tmp; tmp = tmp->m_pNext, i++);
+    return i;
+}
+
+//---------------------------i----------------------------
+//IMPLEMENTAR
+template<typename T>
+list<T>* list<T>::op_intersection(list<T> &second) {
+    list<T> *ret = new list<T>;
+    pNode_T t1 = m_pHead,
+            *tmp;
+    while(t1) {
+        if (second.find(t1->m_dato, tmp))
+            ret->add_rec(t1->m_dato);
+        t1 = t1->m_pNext;
+    }
+    return ret;
+}
+
+//---------------------------j----------------------------
+//IMPLEMENTAR
+template<typename T>
+list<T>* list<T>::op_union(list<T> &second) {
+
+}
+
+//---------------------------k----------------------------
+//IMPLEMENTAR
+template<typename T>
+sizet list<T>::count(T &d) {
+
+}
+
+#endif // LIST_H
