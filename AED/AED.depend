@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1377798735 source:/home/carola/Escritorio/Programming/Repositories/AED-Data-Structures/AED/main.cpp
+	"list.h"
+
+1377799098 /home/carola/Escritorio/Programming/Repositories/AED-Data-Structures/AED/list.h
+	"foundations.h"
+
+1377796883 /home/carola/Escritorio/Programming/Repositories/AED-Data-Structures/AED/foundations.h
+	<iostream>
+
