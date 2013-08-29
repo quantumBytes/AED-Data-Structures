@@ -36,16 +36,10 @@ class list
         void pop_front();
         void pop_back();
         void remove(T&);
-        void add_rec(T&d) {return add_rec(d,m_pHead);}
-        bool find_rec(T&d) {return find_rec(d,m_pHead);}
-        void invert() {invert(m_pHead, m_pHead->m_pNext, m_pHead->m_pNext->m_pNext);}
-        T *find_max();
-
         inline void add_rec(T&d) {return add_rec(d,m_pHead);}
         inline bool find_rec(T&d) {return find_rec(d,m_pHead);}
-        void invert();
-
-        T* find_max();
+        void invert() {invert(m_pHead, m_pHead->m_pNext, m_pHead->m_pNext->m_pNext);}
+        T *find_max();
         sizet count();
         list<T>* op_intersection(list<T> &second);
         list<T>* op_union(list<T> &second);
@@ -262,7 +256,23 @@ list<T>* list<T>::op_intersection(list<T> &second) {
 //IMPLEMENTAR
 template<typename T>
 list<T>* list<T>::op_union(list<T> &second) {
+    list<T> *ret = new list<T>;
+    pNode_T t1 = m_pHead,
+            *tmp;
+    while(t1) {
+        if (!(ret->find(t1->m_dato, tmp)))
+            ret->add_rec(t1->m_dato);
+        t1 = t1->m_pNext;
+    }
 
+    t1 = second.m_pHead;
+    while(t1) {
+        if (!(ret->find(t1->m_dato, tmp)))
+            ret->add_rec(t1->m_dato);
+        t1 = t1->m_pNext;
+    }
+
+    return ret;
 }
 
 //---------------------------k----------------------------
