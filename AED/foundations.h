@@ -16,7 +16,7 @@ class Node
     public:
         Node(T&d) : m_dato(d), m_pNext(0) {}
         Node(T&d, Node<T> * next) : m_dato(d), m_pNext(next) {}
-        virtual ~Node(){}
+        virtual ~Node() {}
 };
 
 #endif // FOUNDATIONS_H

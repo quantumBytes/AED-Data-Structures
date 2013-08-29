@@ -16,28 +16,28 @@ class list
         sizet m_size;
 
     private:
-        bool inner_find(T&d, Node_T ** &);
-        void add_rec(T&d,pNode_T& pCurrent);
-        bool find_rec(T&d, pNode_T& pCurrent);
+        bool inner_find(T &d, pNode_T *&);
+        void add_rec(T &d,pNode_T &pCurrent);
+        bool find_rec(T &d, pNode_T &pCurrent);
         void invert(pNode_T father, pNode_T son, pNode_T grandSon);
 
     public:
         list() : m_pHead(0), m_size(0) {}
-        virtual ~list() {}
+        virtual ~list();
 
         inline sizet size() {return m_size;}
         T& at(sizet);
         inline T& operator [](sizet position) {return at(position);}
 
-        bool find(T&, Node_T ** &);
+        bool find(T&, pNode_T* &);
 
         void push_front(T&);
         void push_back(T&);
         void pop_front();
         void pop_back();
-        void remove(T&);
-        inline void add_rec(T&d) {return add_rec(d,m_pHead);}
-        inline bool find_rec(T&d) {return find_rec(d,m_pHead);}
+        void remove(T &);
+        inline void add_rec(T &d) {return add_rec(d,m_pHead);}
+        inline bool find_rec(T &d) {return find_rec(d,m_pHead);}
         void invert();
         T *find_max();
         sizet count();
@@ -46,6 +46,16 @@ class list
         sizet count(T &d);
 };
 
+template<typename T>
+list<T>::~list() {
+    pNode_T tmp1 = m_pHead,
+            tmp2;
+    while(tmp1) {
+        tmp2 = tmp1->m_pNext;
+        delete tmp1;
+        tmp1 = tmp2;
+    }
+}
 
 template<typename T>
 T& list<T>::at(sizet position)
@@ -93,7 +103,7 @@ void list<T>::push_back(T&d)
 
 /** Starts looking up d since pointer */
 template<typename T>
-bool list<T>::inner_find(T&d, Node_T ** &pointer)
+bool list<T>::inner_find(T&d, pNode_T *&pointer)
 {
     while(*pointer)
     {
@@ -106,7 +116,7 @@ bool list<T>::inner_find(T&d, Node_T ** &pointer)
 
 /** Looks up data d on the list, starting since head */
 template<typename T>
-bool list<T>::find(T&d, Node_T ** &pointer)
+bool list<T>::find(T&d, pNode_T *&pointer)
 {
     pointer=&m_pHead;
     return inner_find(d,pointer);
@@ -253,7 +263,6 @@ list<T>* list<T>::op_intersection(list<T> &second) {
 }
 
 //---------------------------j----------------------------
-//IMPLEMENTAR
 template<typename T>
 list<T>* list<T>::op_union(list<T> &second) {
     list<T> *ret = new list<T>;
