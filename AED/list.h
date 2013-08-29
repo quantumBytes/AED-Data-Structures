@@ -226,7 +226,6 @@ T& list<T>::find_max() {
 }
 
 //---------------------------h----------------------------
-//IMPLEMENTAR
 template<typename T>
 sizet list<T>::count() { //Count por bucle, utilizar en el trabajo
     sizet i = 0;
@@ -235,7 +234,6 @@ sizet list<T>::count() { //Count por bucle, utilizar en el trabajo
 }
 
 //---------------------------i----------------------------
-//IMPLEMENTAR
 template<typename T>
 list<T>* list<T>::op_intersection(list<T> &second) {
     list<T> *ret = new list<T>;

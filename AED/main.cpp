@@ -14,24 +14,25 @@ void showList(list<T>& A)
 int main()
 {
     /* Pruebas Carola */
-    list<int> A;
+    /*list<int> A;
     int a=2, b=3, c=4, d=5;
     A.add_rec(b);
     A.add_rec(a);
     A.add_rec(c);
     A.add_rec(d);
-    showList(A);
-
+    showList(A);*/
 
     /*Pruebas Elias*/
-    /*list<int>   A,
+    list<int>   A,
                 B,
                 *C = NULL;
     int a=2, b=3, c=4;
     A.add_rec(a);
     A.add_rec(c);
+    A.push_back(b);
     B.add_rec(b);
     B.add_rec(c);
-    //C = A.op_intersection(B);
-    showList(A);*/
+
+    C = A.op_intersection(B);
+    showList(*C);
 }
