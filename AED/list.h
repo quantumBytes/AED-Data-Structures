@@ -25,7 +25,7 @@ class list
         list() : m_pHead(0), m_size(0) {}
         virtual ~list() {}
 
-        sizet size() {return m_size;}
+        inline sizet size() {return m_size;}
         T& at(sizet);
         inline T& operator [](sizet position) {return at(position);}
 
@@ -38,7 +38,7 @@ class list
         void remove(T&);
         inline void add_rec(T&d) {return add_rec(d,m_pHead);}
         inline bool find_rec(T&d) {return find_rec(d,m_pHead);}
-        void invert() {invert(m_pHead, m_pHead->m_pNext, m_pHead->m_pNext->m_pNext);}
+        void invert();
         T *find_max();
         sizet count();
         list<T>* op_intersection(list<T> &second);
