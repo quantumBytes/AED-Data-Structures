@@ -164,20 +164,12 @@ void list<T>::remove(T&d)
     }
 }
 //-------------------------d----------------------------
-/** ALGUIEN ARREGLE ESTO xD */
 template<typename T>
 void list<T>::add_rec(T&d, pNode_T& pCurrent)
 {
-    pNode_T nu=new Node_T(d);
     if(!pCurrent)
     {
-        m_pHead=nu;
-        m_size++;
-        return;
-    }
-    if(!pCurrent->m_pNext)
-    {
-        pCurrent->m_pNext=nu;
+        pCurrent=new Node_T(d,pCurrent);
         m_size++;
         return;
     }
@@ -194,7 +186,6 @@ bool list<T>::find_rec(T&d, pNode_T& pCurrent)
     return find_rec(d, pCurrent->m_pNext);
 }
 //---------------------------f----------------------------
-/** INOPERATIVO */
 template<typename T>
 void list<T>::invert(pNode_T father, pNode_T son, pNode_T grandSon)
 {
@@ -266,7 +257,6 @@ list<T>* list<T>::op_union(list<T> &second) {
 }
 
 //---------------------------k----------------------------
-//IMPLEMENTAR
 template<typename T>
 sizet list<T>::count(T &d) {
     sizet i = 0;

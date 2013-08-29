@@ -15,12 +15,13 @@ int main()
 {
     /* Pruebas Carola */
     list<int> A;
-    int a=2, b=3;//, c=4, d=5;
-    A.push_back(a);
-    A.push_back(b);
+    int a=2, b=3, c=4, d=5;
+    A.add_rec(b);
+    A.add_rec(a);
+    A.add_rec(c);
+    A.add_rec(d);
     showList(A);
-    A.invert();
-    showList(A);
+
 
     /*Pruebas Elias*/
     /*list<int>   A,
