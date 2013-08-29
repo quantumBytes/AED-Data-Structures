@@ -1,6 +1,8 @@
 #ifndef FOUNDATIONS_H
 #define FOUNDATIONS_H
 
+#include <iostream>
+
 typedef size_t sizet;
 
 /** Basic Node Class with just one pointer to next Node */

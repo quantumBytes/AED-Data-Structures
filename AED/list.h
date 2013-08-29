@@ -6,27 +6,55 @@
 template<typename T>
 class list
 {
+    typedef Node<T> * pNode_T;
+
     protected:
-        Node<T> * m_pHead;
+        pNode_T m_pHead;
         sizet m_size;
 
+    private:
+        bool inner_find(T&d, Node<T> ** &);
     public:
         list() : m_pHead(0), m_size(0) {}
         virtual ~list() {}
 
+        sizet size() {return m_size;}
+        T& at(sizet);
+        T& operator [](sizet position) {return at(position);}
+        void showList();
+
+        bool find(T&, Node<T> ** &);
+
         void push_front(T&);
         void push_back(T&);
-        T& at(sizet);
-
-        sizet size() {return m_size;}
+        void pop_front();
+        void pop_back();
+        void remove(T&);
 };
 
 #endif // LIST_H
 
 template<typename T>
+T& list<T>::at(sizet position)
+{
+    if(position>=m_size || position<0)
+        throw 0;
+
+    pNode_T tmp=m_pHead;
+    while(position)
+    {
+        tmp=tmp->m_pNext;
+        position--;
+    }
+    return tmp->m_dato;
+}
+
+void showList();
+
+template<typename T>
 void list<T>::push_front(T&d)
 {
-    Node<T> * nu = new Node<T> (d);
+    pNode_T nu = new Node<T> (d);
     if(m_pHead)
         nu->m_pNext=m_pHead;
     m_pHead=nu;
@@ -36,13 +64,13 @@ void list<T>::push_front(T&d)
 template<typename T>
 void list<T>::push_back(T&d)
 {
-    Node<T> * nu = new Node<T> (d);
+    pNode_T nu = new Node<T> (d);
 
     if(!m_pHead)
         m_pHead=nu;
     else
     {
-        Node<T> * tmp= m_pHead;
+        pNode_T tmp= m_pHead;
 
         while(tmp->m_pNext)
             tmp=tmp->m_pNext;
@@ -52,17 +80,72 @@ void list<T>::push_back(T&d)
     m_size++;
 }
 
+/** Starts looking up d since pointer */
 template<typename T>
-T& list<T>::at(sizet position)
+bool list<T>::inner_find(T&d, Node<T> ** &pointer)
 {
-    if(position>m_size)
-        throw 0;
-
-    Node<T> * tmp=m_pHead;
-    while(position)
+    while(*pointer)
     {
-        tmp=tmp->m_pNext;
-        position--;
+        if((*pointer)->m_dato==d)
+            return true;
+        pointer=&((*pointer)->m_pNext);
     }
-    return tmp->m_dato;
+    return false;
+}
+
+/** Looks up data d on the list, starting since head */
+template<typename T>
+bool list<T>::find(T&d, Node<T> ** &pointer)
+{
+    pointer=&m_pHead;
+    return inner_find(d,pointer);
+}
+//-------------------------a---------------------------
+template<typename T>
+void list<T>::pop_front()
+{
+    if(!m_pHead)
+        return;
+
+    pNode_T tmp=m_pHead;
+    m_pHead=m_pHead->m_pNext;
+
+    delete tmp;
+    m_size--;
+}
+//-------------------------b---------------------------
+template<typename T>
+void list<T>::pop_back()
+{
+    if(!m_size)
+        return;
+
+    pNode_T tmp=m_pHead;
+    pNode_T father;
+
+    while(tmp->m_pNext)
+    {
+        father=tmp;
+        tmp=tmp->m_pNext;
+    }
+    delete tmp;
+
+    if(m_size!=1)
+        father->m_pNext=0;
+    m_size--;
+}
+//-------------------------c--------------------------
+template<typename T>
+void list<T>::remove(T&d)
+{
+    pNode_T *tmp=&m_pHead;
+    pNode_T mem;
+
+    while (inner_find(d, tmp))
+    {
+        mem=(*tmp);
+        (*tmp)=(*tmp)->m_pNext;
+        delete mem;
+        m_size--;
+    }
 }
