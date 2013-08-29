@@ -2,7 +2,6 @@
 #define LIST_H
 
 #include "foundations.h"
-#include <iostream>
 
 using namespace std;
 
@@ -20,7 +19,7 @@ class list
         bool inner_find(T&d, Node_T ** &);
         void add_rec(T&d,pNode_T& pCurrent);
         bool find_rec(T&d, pNode_T& pCurrent);
-        void invert(pNode_T &father, pNode_T &son, pNode_T &grandSon);
+        void invert(pNode_T father, pNode_T son, pNode_T grandSon);
 
     public:
         list() : m_pHead(0), m_size(0) {}
@@ -28,7 +27,7 @@ class list
 
         sizet size() {return m_size;}
         T& at(sizet);
-        T& operator [](sizet position) {return at(position);}
+        inline T& operator [](sizet position) {return at(position);}
 
         bool find(T&, Node_T ** &);
 
@@ -41,11 +40,18 @@ class list
         bool find_rec(T&d) {return find_rec(d,m_pHead);}
         void invert() {invert(m_pHead, m_pHead->m_pNext, m_pHead->m_pNext->m_pNext);}
         T *find_max();
+
+        inline void add_rec(T&d) {return add_rec(d,m_pHead);}
+        inline bool find_rec(T&d) {return find_rec(d,m_pHead);}
+        void invert();
+
+        T* find_max();
         sizet count();
         list<T>* op_intersection(list<T> &second);
         list<T>* op_union(list<T> &second);
         sizet count(T &d);
 };
+
 
 template<typename T>
 T& list<T>::at(sizet position)
@@ -162,20 +168,12 @@ void list<T>::remove(T&d)
     }
 }
 //-------------------------d----------------------------
-/** ALGUIEN ARREGLE ESTO xD */
 template<typename T>
 void list<T>::add_rec(T&d, pNode_T& pCurrent)
 {
-    pNode_T nu=new Node_T(d);
     if(!pCurrent)
     {
-        m_pHead=nu;
-        m_size++;
-        return;
-    }
-    if(!pCurrent->m_pNext)
-    {
-        pCurrent->m_pNext=nu;
+        pCurrent=new Node_T(d,pCurrent);
         m_size++;
         return;
     }
@@ -192,25 +190,39 @@ bool list<T>::find_rec(T&d, pNode_T& pCurrent)
     return find_rec(d, pCurrent->m_pNext);
 }
 //---------------------------f----------------------------
-/** INOPERATIVO */
 template<typename T>
-void list<T>::invert(pNode_T &father, pNode_T &son, pNode_T &grandSon)
-{/*
+void list<T>::invert(pNode_T father, pNode_T son, pNode_T grandSon)
+{
     son->m_pNext=father;
-    std::cout<<son->m_dato<<std::endl;
     if(!grandSon->m_pNext)
     {
         grandSon->m_pNext=son;
         m_pHead->m_pNext=0;
         m_pHead=grandSon;
-
         return;
     }
-    invert(son, grandSon, grandSon->m_pNext);*/
+    invert(son, grandSon, grandSon->m_pNext);
+}
+
+template<typename T>
+void list<T>::invert()
+{
+    pNode_T father=m_pHead;
+    if(!father) return;                 /** empty */
+    pNode_T son=m_pHead->m_pNext;
+    if(!son) return;                    /** one element */
+    pNode_T grandSon=son->m_pNext;
+    if(!grandSon)                       /** two elements */
+    {
+        son->m_pNext=m_pHead;
+        m_pHead=son;
+        m_pHead->m_pNext->m_pNext=0;
+        return;
+    }
+    invert(father, son, grandSon);      /** more than three */
 }
 
 //---------------------------g----------------------------
-//IMPLEMENTAR
 template<typename T>
 T* list<T>::find_max() {    //Retorna dirección al elemento en la lista, si está vacía retorna NULL
     if(m_pHead) {
