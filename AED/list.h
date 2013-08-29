@@ -219,8 +219,10 @@ T& list<T>::find_max() {
 //---------------------------h----------------------------
 //IMPLEMENTAR
 template<typename T>
-sizet list<T>::count() {
-
+sizet list<T>::count() { //Count por bucle, utilizar en el trabajo
+    sizet i = 0;
+    for(pNode_T tmp = m_pHead; tmp; tmp = tmp->m_pNext, i++);
+    return i;
 }
 
 //---------------------------i----------------------------
