@@ -269,7 +269,11 @@ list<T>* list<T>::op_union(list<T> &second) {
 //IMPLEMENTAR
 template<typename T>
 sizet list<T>::count(T &d) {
-
+    sizet i = 0;
+    for(pNode_T tmp = m_pHead; tmp; tmp = tmp->m_pNext)
+        if(tmp->m_dato == d)
+            i++;
+    return i;
 }
 
 #endif // LIST_H
