@@ -14,10 +14,9 @@ void showList(list<T>& A)
 int main()
 {
     list<int> A;
-    int a=2, b=3, c=4;
-    A.add_rec(a);
-    A.add_rec(b);
-    A.add_rec(c);
+    int a=2, b=3;//, c=4, d=5;
+    A.push_back(a);
+    A.push_back(b);
     showList(A);
     A.invert();
     showList(A);

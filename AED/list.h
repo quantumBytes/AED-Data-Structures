@@ -2,7 +2,6 @@
 #define LIST_H
 
 #include "foundations.h"
-#include <iostream>
 
 template<typename T>
 class list
@@ -17,7 +16,7 @@ class list
         bool inner_find(T&d, Node<T> ** &);
         void add_rec(T&d,pNode_T& pCurrent);
         bool find_rec(T&d, pNode_T& pCurrent);
-        void invert(pNode_T &father, pNode_T &son, pNode_T &grandSon);
+        void invert(pNode_T father, pNode_T son, pNode_T grandSon);
 
     public:
         list() : m_pHead(0), m_size(0) {}
@@ -25,7 +24,7 @@ class list
 
         sizet size() {return m_size;}
         T& at(sizet);
-        T& operator [](sizet position) {return at(position);}
+        inline T& operator [](sizet position) {return at(position);}
 
         bool find(T&, Node<T> ** &);
 
@@ -34,9 +33,9 @@ class list
         void pop_front();
         void pop_back();
         void remove(T&);
-        void add_rec(T&d) {return add_rec(d,m_pHead);}
-        bool find_rec(T&d) {return find_rec(d,m_pHead);}
-        void invert() {invert(m_pHead, m_pHead->m_pNext, m_pHead->m_pNext->m_pNext);}
+        inline void add_rec(T&d) {return add_rec(d,m_pHead);}
+        inline bool find_rec(T&d) {return find_rec(d,m_pHead);}
+        void invert();
 };
 
 #endif // LIST_H
@@ -188,17 +187,33 @@ bool list<T>::find_rec(T&d, pNode_T& pCurrent)
 //---------------------------f----------------------------
 /** INOPERATIVO */
 template<typename T>
-void list<T>::invert(pNode_T &father, pNode_T &son, pNode_T &grandSon)
-{/*
+void list<T>::invert(pNode_T father, pNode_T son, pNode_T grandSon)
+{
     son->m_pNext=father;
-    std::cout<<son->m_dato<<std::endl;
     if(!grandSon->m_pNext)
     {
         grandSon->m_pNext=son;
         m_pHead->m_pNext=0;
         m_pHead=grandSon;
-
         return;
     }
-    invert(son, grandSon, grandSon->m_pNext);*/
+    invert(son, grandSon, grandSon->m_pNext);
+}
+
+template<typename T>
+void list<T>::invert()
+{
+    pNode_T father=m_pHead;
+    if(!father) return;                 /** empty */
+    pNode_T son=m_pHead->m_pNext;
+    if(!son) return;                    /** one element */
+    pNode_T grandSon=son->m_pNext;
+    if(!grandSon)                       /** two elements */
+    {
+        son->m_pNext=m_pHead;
+        m_pHead=son;
+        m_pHead->m_pNext->m_pNext=0;
+        return;
+    }
+    invert(father, son, grandSon);      /** more than three */
 }
