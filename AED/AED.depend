@@ -9,3 +9,13 @@
 1377739263 /home/carola/Escritorio/Programming/Repositories/AED-Data-Structures/AED/foundations.h
 	<iostream>
 
+1377776621 source:d:\dev\codeblocks\aed-data-structures\aed\main.cpp
+	"list.h"
+
+1377777256 d:\dev\codeblocks\aed-data-structures\aed\list.h
+	"foundations.h"
+	<iostream>
+
+1377776620 d:\dev\codeblocks\aed-data-structures\aed\foundations.h
+	<iostream>
+

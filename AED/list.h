@@ -38,6 +38,11 @@ class list
         void add_rec(T&d) {return add_rec(d,m_pHead);}
         bool find_rec(T&d) {return find_rec(d,m_pHead);}
         void invert() {invert(m_pHead, m_pHead->m_pNext, m_pHead->m_pNext->m_pNext);}
+        T& find_max();
+        sizet count();
+        list<T>* op_intersection(list<T> &second);
+        list<T>* op_union(list<T> &second);
+        sizet count(T &d);
 };
 
 template<typename T>
@@ -200,6 +205,41 @@ void list<T>::invert(pNode_T &father, pNode_T &son, pNode_T &grandSon)
         return;
     }
     invert(son, grandSon, grandSon->m_pNext);*/
+}
+
+//---------------------------g----------------------------
+//IMPLEMENTAR
+template<typename T>
+T& list<T>::find_max() {
+
+}
+
+//---------------------------h----------------------------
+//IMPLEMENTAR
+template<typename T>
+sizet list<T>::count() {
+
+}
+
+//---------------------------i----------------------------
+//IMPLEMENTAR
+template<typename T>
+list<T>* list<T>::op_intersection(list<T> &second) {
+
+}
+
+//---------------------------j----------------------------
+//IMPLEMENTAR
+template<typename T>
+list<T>* list<T>::op_union(list<T> &second) {
+
+}
+
+//---------------------------k----------------------------
+//IMPLEMENTAR
+template<typename T>
+sizet list<T>::count(T &d) {
+
 }
 
 #endif // LIST_H
